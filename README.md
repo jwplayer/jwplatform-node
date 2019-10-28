@@ -5,7 +5,7 @@ Node client for interfacing with the JW Platform management API.
 ## Example Usage
 
 ```
-const JWPlatformAPI = require('jwplatform/api');
+const JWPlatformAPI = require('jwplatform');
 
 const jwApi = new JWPlatformAPI('INSERT API KEY', 'INSERT API SECRET');
 
