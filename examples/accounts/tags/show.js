@@ -7,6 +7,10 @@ const jwApiInstance = new JWPlatformAPI(
     process.env.API_SECRET
 );
 
+if (!process.env.TAG_NAME) {
+    return console.warn('TAG_NAME required');
+}
+
 jwApiInstance.accounts.tags
-    .show({ name: process.env.NAME })
+    .show({ name: process.env.TAG_NAME })
     .then(response => console.log(response));
