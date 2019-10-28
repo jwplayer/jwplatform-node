@@ -9,7 +9,7 @@ const utils = require('./utils');
 class Client {
     constructor(apiKey, apiSecret, timeout) {
         this.axios = axios.create({
-            baseURL: 'http://api.jwplatform.com/v1/',
+            baseURL: 'https://api.jwplatform.com/v1/',
             timeout,
             headers: { 'Content-Type': 'application/json' },
         });
@@ -57,7 +57,7 @@ class Client {
     _fetch(url, method, data) {
         return new Promise((resolve, reject) => {
             this.axios
-                .request({ method, url, data })
+                .request({ url, method, data })
                 .then(response => resolve(response.data))
                 .catch(e => reject(e));
         });
