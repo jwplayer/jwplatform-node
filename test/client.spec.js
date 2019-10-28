@@ -10,13 +10,13 @@ const MOCK_KEY = 'abcdefgh';
 const MOCK_SECRET = 'abadsfscdqwasdw';
 
 describe('Client', function() {
-    const fetchSpy = sinon.stub(Client.prototype, '_fetch');
+    const fetchStub = sinon.stub(Client.prototype, '_fetch');
     const client = new Client(MOCK_KEY, MOCK_SECRET, 5000);
 
     describe('make request', function() {
         it('should request the given endpoint once', () => {
             client.makeRequest('test', 'hi', 'there');
-            sinon.assert.calledOnce(fetchSpy);
+            sinon.assert.calledOnce(fetchStub);
         });
     });
 

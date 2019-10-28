@@ -5,7 +5,8 @@ const Resource = require('./resource');
 const resources = require('./resources');
 
 class JWPlatformAPI {
-    constructor(apiKey, apiSecret, timeout = 5000) {
+    constructor(opts = { timeout: 5000 }) {
+        const { apiKey, apiSecret, timeout } = opts;
         this._client = new Client(apiKey, apiSecret, timeout);
 
         this._loadResources();
@@ -13,20 +14,17 @@ class JWPlatformAPI {
 
     _loadResources() {
         const { _client } = this;
-        const self = this;
         Object.keys(resources).forEach(resource => {
             if (resource.includes('/')) {
                 const [parentResource, childResource] = resource.split('/');
-                if (!self[parentResource]) {
-                    self[parentResource] = {};
-                }
-                self[parentResource][childResource] = new Resource(
+                this[parentResource] = this[parentResource] || {};
+                this[parentResource][childResource] = new Resource(
                     _client,
                     resource,
                     resources[resource]
                 );
             } else {
-                self[resource] = new Resource(_client, resource);
+                this[resource] = new Resource(_client, resource);
             }
         });
     }

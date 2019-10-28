@@ -11,12 +11,12 @@ describe('Resource', function() {
     const mockPath = 'test';
     const resource = new Resource(mockClient, mockPath);
 
-    afterEach(() => {
+    this.beforeEach(() => {
         makeRequestSpy.resetHistory();
     });
 
     describe('create action', function() {
-        it('have an create action that call makeRequest', () => {
+        it('have a create action that call makeRequest', () => {
             resource.create();
             sinon.assert.calledOnce(makeRequestSpy);
         });

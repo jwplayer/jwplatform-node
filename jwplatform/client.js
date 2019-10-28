@@ -1,6 +1,6 @@
 'use strict';
 
-const axios = require('axios').default;
+const axios = require('axios');
 const sha1 = require('js-sha1');
 const qs = require('qs');
 
@@ -18,29 +18,23 @@ class Client {
         this._apiSecret = apiSecret;
 
         this.makeRequest = this.makeRequest.bind(this);
-        this._fetch = this._fetch.bind(this);
-        this._buildUrl = this._buildUrl.bind(this);
-        this._generateBaseQsParams = this._generateBaseQsParams.bind(this);
-        this._generateSignature = this._generateSignature.bind(this);
     }
 
     makeRequest(path, requestMethod, paramType, params = null) {
         const qsParams = paramType === 'qs' ? params : {};
         const requestBody = paramType === 'body' ? params : {};
-
         const fullyQualifiedPath = this._buildUrl(path, qsParams);
 
         return this._fetch(fullyQualifiedPath, requestMethod, requestBody);
     }
 
     _buildUrl(path, params) {
-        const preHashParams = Object.assign(
+        const preSignatureParams = Object.assign(
             {},
             params,
             this._generateBaseQsParams()
         );
-
-        const qsParamString = qs.stringify(preHashParams, {
+        const qsParamString = qs.stringify(preSignatureParams, {
             charset: 'utf-8',
             sort: utils.alphabeticalSort,
         });
@@ -55,13 +49,10 @@ class Client {
 
     _fetch(url, method, data) {
         return new Promise((resolve, reject) => {
-            return (
-                this.axios
-                    .request({ url, method, data })
-                    // to do: look at responses to see if I can parse the specific resource data out easily
-                    .then(response => resolve(response.data))
-                    .catch(e => reject(e))
-            );
+            return this.axios
+                .request({ url, method, data })
+                .then(response => resolve(response.data))
+                .catch(e => reject(e));
         });
     }
 

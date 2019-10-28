@@ -10,7 +10,10 @@ const MOCK_KEY = 'abcdefgh';
 const MOCK_SECRET = 'abadsfscdqwasdw';
 
 describe('JWPlayerPlatformAPI', function() {
-    const api = new JWPlatformAPI(MOCK_KEY, MOCK_SECRET);
+    const api = new JWPlatformAPI({
+        apiKey: MOCK_KEY,
+        apiSecret: MOCK_SECRET,
+    });
 
     it('should instantiate with api key and secret', () => {
         expect(api).to.be.instanceOf(JWPlatformAPI);

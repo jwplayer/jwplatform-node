@@ -2,12 +2,14 @@
 
 Node client for interfacing with the JW Platform management API.
 
+Note that this is not developed for client side use, as it requires your API Key and Secret. For your own security, please restrict usage to server side applications.
+
 ## Example Usage
 
 ```
 const JWPlatformAPI = require('jwplatform');
 
-const jwApi = new JWPlatformAPI('INSERT API KEY', 'INSERT API SECRET');
+const jwApi = new JWPlatformAPI({ apiKey: 'INSERT API KEY', apiSecret: 'INSERT API SECRET'});
 
 jwApi.videos.show({ video_key: 'INSERT VIDEO KEY' }).then((response) => { 
     // handle response data 
@@ -42,7 +44,10 @@ Coverage reports are available through [Istanbul.js](https://istanbul.js.org/), 
 
 ## Linting
 
-This repository is lintned using ESLint and Prettier. To 
+This repository is lintned using ESLint and Prettier. Two commands are available for linting:
+
+- `yarn check-lint`: provides a report but does not apply any fixes
+- `yarn lint`: runs and fixes lint issues.
 
 ## License
 
