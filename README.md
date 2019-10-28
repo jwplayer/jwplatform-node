@@ -9,8 +9,26 @@ const JWPlatformAPI = require('jwplatform');
 
 const jwApi = new JWPlatformAPI('INSERT API KEY', 'INSERT API SECRET');
 
-const myVideo = jwApi.videos.show({ video_key: 'INSERT VIDEO KEY' })
+jwApi.videos.show({ video_key: 'INSERT VIDEO KEY' }).then((response) => { 
+    // handle response data 
+});
 ```
+
+## Demo
+
+To run a demo of this client, run the following command:
+
+```
+API_KEY='INSERT API KEY' \
+API_SECRET='INSERT API SECRET' \
+// Different routes will need different ID's. Refer to documentation for required fields.
+VIDEO_KEY='INSERT VIDEO ID' \
+// i.e. videos/list or videos/conversions/list
+DEMO = '{RESOURCE}/{ACTION}'
+make demo
+```
+
+**Note that only LIST and SHOW actions are available.**
 
 ## Supported Operations
 

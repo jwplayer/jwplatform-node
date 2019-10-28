@@ -44,7 +44,6 @@ class Client {
             charset: 'utf-8',
             sort: utils.alphabeticalSort,
         });
-
         const signature = this._generateSignature(qsParamString);
         const signedParams = `${qsParamString}&api_signature=${signature}`;
         return `${path}?${signedParams}`;
@@ -56,10 +55,13 @@ class Client {
 
     _fetch(url, method, data) {
         return new Promise((resolve, reject) => {
-            this.axios
-                .request({ url, method, data })
-                .then(response => resolve(response.data))
-                .catch(e => reject(e));
+            return (
+                this.axios
+                    .request({ url, method, data })
+                    // to do: look at responses to see if I can parse the specific resource data out easily
+                    .then(response => resolve(response.data))
+                    .catch(e => reject(e))
+            );
         });
     }
 
