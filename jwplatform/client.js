@@ -55,12 +55,12 @@ class Client {
     }
 
     _fetch(url, method, data) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) =>
             this.axios
                 .request({ method, url, data })
                 .then(response => resolve(response.data))
-                .catch(e => reject(e));
-        });
+                .catch(e => reject(e))
+        );
     }
 
     _generateBaseQsParams() {

@@ -6,68 +6,68 @@ const Client = require('../jwplatform/client');
 const Resource = require('../jwplatform/resource');
 
 describe('Resource', function() {
-    const makeRequestSpy = sinon.stub(Client.prototype, 'makeRequest');
+    const makeRequestStub = sinon.stub(Client.prototype, 'makeRequest');
     const mockClient = new Client('key', 'secret', 5000);
     const mockPath = 'test';
     const resource = new Resource(mockClient, mockPath);
 
     afterEach(() => {
-        makeRequestSpy.resetHistory();
+        makeRequestStub.resetHistory();
     });
 
     describe('create action', function() {
         it('have an create action that call makeRequest', () => {
             resource.create();
-            sinon.assert.calledOnce(makeRequestSpy);
+            sinon.assert.calledOnce(makeRequestStub);
         });
         it('should use "POST" request method and "body" param type by default', () => {
             resource.create();
-            makeRequestSpy.calledWith(`${mockPath}/create`, 'body', 'POST');
+            makeRequestStub.calledWith(`${mockPath}/create`, 'body', 'POST');
         });
     });
 
     describe('delete action', function() {
         it('have a delete action that call makeRequest', () => {
             resource.delete();
-            sinon.assert.calledOnce(makeRequestSpy);
+            sinon.assert.calledOnce(makeRequestStub);
         });
         it('should use "POST" request method and "body" param type by default', () => {
             resource.delete();
-            makeRequestSpy.calledWith(`${mockPath}/delete`, 'body', 'POST');
+            makeRequestStub.calledWith(`${mockPath}/delete`, 'body', 'POST');
         });
     });
 
     describe('list action', function() {
         it('have a list action that call makeRequest', () => {
             resource.list();
-            sinon.assert.calledOnce(makeRequestSpy);
+            sinon.assert.calledOnce(makeRequestStub);
         });
         it('should use "GET" request method and "qs" param type by default', () => {
             resource.list();
-            makeRequestSpy.calledWith(`${mockPath}/list`, 'qs', 'GET');
+            makeRequestStub.calledWith(`${mockPath}/list`, 'qs', 'GET');
         });
     });
 
     describe('show action', function() {
         it('have a show action that call makeRequest', () => {
             resource.show();
-            sinon.assert.calledOnce(makeRequestSpy);
+            sinon.assert.calledOnce(makeRequestStub);
         });
 
         it('should use "GET" request method and "qs" param type by default', () => {
             resource.show();
-            makeRequestSpy.calledWith(`${mockPath}/show`, 'qs', 'GET');
+            makeRequestStub.calledWith(`${mockPath}/show`, 'qs', 'GET');
         });
     });
 
     describe('update action', function() {
         it('have an update action that call makeRequest', () => {
             resource.update();
-            sinon.assert.calledOnce(makeRequestSpy);
+            sinon.assert.calledOnce(makeRequestStub);
         });
         it('should use "POST" request method and "body" param type by default', () => {
             resource.show();
-            makeRequestSpy.calledWith(`${mockPath}/update`, 'body', 'POST');
+            makeRequestStub.calledWith(`${mockPath}/update`, 'body', 'POST');
         });
     });
 
@@ -83,7 +83,7 @@ describe('Resource', function() {
 
         it('honor overridden request method and param type', () => {
             overrideResource.show();
-            makeRequestSpy.calledWith(`${mockPath}/show`, 'body', 'POST');
+            makeRequestStub.calledWith(`${mockPath}/show`, 'body', 'POST');
         });
     });
 });
