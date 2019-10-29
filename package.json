@@ -1,5 +1,5 @@
 {
-  "name": "jwplatform-node",
+  "name": "jwplatform",
   "version": "0.0.1",
   "description": "Node.js library for the JWPlatform Management API",
   "repository": "https://github.com/jwplayer/jwplatform-node",
@@ -10,7 +10,7 @@
   "engines": {
     "node": "^6 || ^8.1 || >=10.*"
   },
-  "main": "jwplatform/client.js",
+  "main": "jwplatform/api.js",
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^6.6.0",

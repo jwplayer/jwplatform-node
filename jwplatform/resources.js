@@ -1,6 +1,6 @@
 'use strict';
 
-// All available overrides, includes overrides or unsupported routes
+// All available resources, includes overrides and unavailable routes (specified via null value)
 module.exports = {
     'accounts/tags': {
         create: {

@@ -16,7 +16,7 @@ describe('Resource', function() {
     });
 
     describe('create action', function() {
-        it('have an create action that call makeRequest', () => {
+        it('have a create action that call makeRequest', () => {
             resource.create();
             sinon.assert.calledOnce(makeRequestStub);
         });

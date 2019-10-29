@@ -1,6 +1,6 @@
 'use strict';
 
-const axios = require('axios').default;
+const axios = require('axios');
 const sha1 = require('js-sha1');
 const qs = require('qs');
 
@@ -9,7 +9,7 @@ const utils = require('./utils');
 class Client {
     constructor(apiKey, apiSecret, timeout) {
         this.axios = axios.create({
-            baseURL: 'http://api.jwplatform.com/v1/',
+            baseURL: 'https://api.jwplatform.com/v1/',
             timeout,
             headers: { 'Content-Type': 'application/json' },
         });
@@ -18,33 +18,26 @@ class Client {
         this._apiSecret = apiSecret;
 
         this.makeRequest = this.makeRequest.bind(this);
-        this._fetch = this._fetch.bind(this);
-        this._buildUrl = this._buildUrl.bind(this);
-        this._generateBaseQsParams = this._generateBaseQsParams.bind(this);
-        this._generateSignature = this._generateSignature.bind(this);
     }
 
     makeRequest(path, requestMethod, paramType, params = null) {
         const qsParams = paramType === 'qs' ? params : {};
         const requestBody = paramType === 'body' ? params : {};
-
         const fullyQualifiedPath = this._buildUrl(path, qsParams);
 
         return this._fetch(fullyQualifiedPath, requestMethod, requestBody);
     }
 
     _buildUrl(path, params) {
-        const preHashParams = Object.assign(
+        const preSignatureParams = Object.assign(
             {},
             params,
             this._generateBaseQsParams()
         );
-
-        const qsParamString = qs.stringify(preHashParams, {
+        const qsParamString = qs.stringify(preSignatureParams, {
             charset: 'utf-8',
             sort: utils.alphabeticalSort,
         });
-
         const signature = this._generateSignature(qsParamString);
         const signedParams = `${qsParamString}&api_signature=${signature}`;
         return `${path}?${signedParams}`;

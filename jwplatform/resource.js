@@ -47,7 +47,7 @@ class Resource {
             } else {
                 const { method, paramType } = actions[action];
                 self[action] = function(params) {
-                    self._client.makeRequest(
+                    return self._client.makeRequest(
                         `${self.path}/${action}`,
                         method,
                         paramType,
