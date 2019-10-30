@@ -46,8 +46,8 @@ Coverage reports are available through [Istanbul.js](https://istanbul.js.org/), 
 
 This repository is lintned using ESLint and Prettier. Two commands are available for linting:
 
-- `yarn check-lint`: provides a report but does not apply any fixes
-- `yarn lint`: runs and fixes lint issues.
+- `yarn lint`: lints projects, without fixing any issues
+- `yarn lint --fix`: runs and fixes lint issues 
 
 ## License
 

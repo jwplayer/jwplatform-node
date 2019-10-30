@@ -31,9 +31,8 @@
   },
   "scripts": {
     "coverage": "nyc -r text -r lcov report",
-    "lint": "yarn check-lint --fix",
-    "check-lint": "eslint .",
+    "lint": "eslint .",
     "mocha": "nyc mocha",
-    "test": "yarn check-lint && yarn mocha"
+    "test": "yarn lint && yarn mocha"
   }
 }
