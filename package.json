@@ -1,6 +1,6 @@
 {
   "name": "jwplatform",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node.js library for the JWPlatform Management API",
   "repository": "https://github.com/jwplayer/jwplatform-node",
   "bugs:": "https://github.com/jwplayer/jwplatform-node/issues",
