@@ -4,9 +4,17 @@ Node client for interfacing with the JW Platform management API.
 
 Note that this is not developed for client side use, as it requires your API Key and Secret. For your own security, please restrict usage to server side applications.
 
+## Install
+
+Install the package with:
+
+```bash
+npm install jwplatform --save
+```
+
 ## Example Usage
 
-```
+```node
 const JWPlatformAPI = require('jwplatform');
 
 const jwApi = new JWPlatformAPI({ apiKey: 'INSERT API KEY', apiSecret: 'INSERT API SECRET'});
@@ -20,7 +28,7 @@ jwApi.videos.show({ video_key: 'INSERT VIDEO KEY' }).then((response) => {
 
 To run a demo of this client, run the following command:
 
-```
+```bash
 API_KEY='INSERT API KEY' \
 API_SECRET='INSERT API SECRET' \
 // Different routes will need different ID's. Refer to documentation for required fields.
