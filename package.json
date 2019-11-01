@@ -1,11 +1,14 @@
 {
   "name": "jwplatform",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Node.js library for the JWPlatform Management API",
-  "repository": "https://github.com/jwplayer/jwplatform-node",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwplayer/jwplatform-node.git"
+  },
   "bugs:": "https://github.com/jwplayer/jwplatform-node/issues",
   "contributors": [
-    "Ian Boynton <iboynton@jwplayer.com"
+    "Ian Boynton"
   ],
   "engines": {
     "node": "^6 || ^8.1 || >=10.*"
@@ -34,5 +37,13 @@
     "lint": "eslint .",
     "mocha": "nyc mocha",
     "test": "yarn lint && yarn mocha"
+  },
+  "bugs": {
+    "url": "https://github.com/jwplayer/jwplatform-node/issues"
+  },
+  "homepage": "https://github.com/jwplayer/jwplatform-node#readme",
+  "directories": {
+    "example": "examples",
+    "test": "test"
   }
 }
