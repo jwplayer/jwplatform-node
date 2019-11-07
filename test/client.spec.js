@@ -29,16 +29,15 @@ describe('Client', function() {
         });
     });
 
-    describe('build url', () => {
+    describe('build params', () => {
         it('should return a string', () => {
-            const url = client._buildUrl('test');
+            const url = client._buildParams({ test: 'string' });
             expect(url).to.be.a('string');
             expect(url).to.include('test');
         });
 
         it('should accept paramaters, include them in url', () => {
-            const url = client._buildUrl('test', { hey: 'there' });
-            expect(url).to.include('test');
+            const url = client._buildParams({ hey: 'there' });
             expect(url).to.include('&hey=there');
         });
 
@@ -59,9 +58,9 @@ describe('Client', function() {
                 c: 'd',
             };
             const path = 'test';
-            const url = client._buildUrl(path, params);
+            const url = client._buildParams(params);
             expect(url).to.equal(
-                'test?a=b&api_format=json&api_key=key&api_nonce=12345678&api_timestamp=1234567890&c=d&api_signature=abcdef'
+                'a=b&api_format=json&api_key=key&api_nonce=12345678&api_timestamp=1234567890&c=d&api_signature=abcdef'
             );
         });
     });

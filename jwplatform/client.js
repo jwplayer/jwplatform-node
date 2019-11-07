@@ -21,13 +21,13 @@ class Client {
     }
 
     makeRequest(path, requestMethod, paramType, params = null) {
-        const requestParams = this._buildUrl(path, params);
+        const requestParams = this._buildParams(params);
         const requestUrl =
             paramType == 'qs' ? `${path}?${requestParams}` : path;
         return this._fetch(requestUrl, requestMethod, requestParams);
     }
 
-    _buildUrl(path, params) {
+    _buildParams(params) {
         const preSignatureParams = Object.assign(
             {},
             params,
@@ -39,7 +39,7 @@ class Client {
         });
         const signature = this._generateSignature(qsParamString);
         const signedParams = `${qsParamString}&api_signature=${signature}`;
-        return `${path}?${signedParams}`;
+        return signedParams;
     }
 
     _generateSignature(qsParamString) {
