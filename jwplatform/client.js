@@ -11,7 +11,7 @@ class Client {
         this.axios = axios.create({
             baseURL: 'https://api.jwplatform.com/v1/',
             timeout,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         });
 
         this._apiKey = apiKey;
@@ -21,14 +21,13 @@ class Client {
     }
 
     makeRequest(path, requestMethod, paramType, params = null) {
-        const qsParams = paramType === 'qs' ? params : {};
-        const requestBody = paramType === 'body' ? params : {};
-        const fullyQualifiedPath = this._buildUrl(path, qsParams);
-
-        return this._fetch(fullyQualifiedPath, requestMethod, requestBody);
+        const requestParams = this._buildParams(params);
+        const requestUrl =
+            paramType == 'qs' ? `${path}?${requestParams}` : path;
+        return this._fetch(requestUrl, requestMethod, requestParams);
     }
 
-    _buildUrl(path, params) {
+    _buildParams(params) {
         const preSignatureParams = Object.assign(
             {},
             params,
@@ -40,7 +39,7 @@ class Client {
         });
         const signature = this._generateSignature(qsParamString);
         const signedParams = `${qsParamString}&api_signature=${signature}`;
-        return `${path}?${signedParams}`;
+        return signedParams;
     }
 
     _generateSignature(qsParamString) {
