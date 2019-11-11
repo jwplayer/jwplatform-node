@@ -42,7 +42,7 @@ make demo
 
 ## Supported Operations
 
-All API methods documentated on the API are available in this client. Please refer [here](https://beta-developer.jwplayer.com/jwplayer/reference).
+All API methods documentated on the API are available in this client. Please refer [here](https://developer.jwplayer.com/jwplayer/reference).
 
 ## Testing
 
