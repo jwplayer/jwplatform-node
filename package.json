@@ -1,6 +1,6 @@
 {
   "name": "jwplatform",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Node.js library for the JWPlatform Management API",
   "repository": {
     "type": "git",
