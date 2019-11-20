@@ -10,7 +10,12 @@ const jwApiInstance = new JWPlatformAPI({
 const filePath = './examples/test.mp4';
 
 jwApiInstance
-    .upload({ title: 'A test upload' }, filePath)
+    .upload(
+        {
+            title: 'My new video!',
+        },
+        filePath
+    )
     .then(resp => {
         console.log(resp);
     })

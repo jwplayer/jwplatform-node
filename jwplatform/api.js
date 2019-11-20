@@ -1,14 +1,11 @@
 'use strict';
 
-const axios = require('axios');
 const Client = require('./client');
-const FormData = require('form-data');
 const fs = require('fs');
-const utils = require('./utils');
 const Resource = require('./resource');
 const resources = require('./resources');
 const resolve = require('path').resolve;
-const qs = require('qs');
+const rp = require('request-promise');
 
 class JWPlatformAPI {
     constructor(opts = { timeout: 5000 }) {
@@ -41,20 +38,17 @@ class JWPlatformAPI {
         });
         return this.videos.create(videoData).then(response => {
             const { path, protocol, address } = response.link;
-            const qsParams = Object.assign({}, response.link.query, {
-                api_format: 'json',
-            });
-            const qsParamString = qs.stringify(qsParams, {
-                charset: 'utf-8',
-                sort: utils.alphabeticalSort,
-            });
-            const uploadUrl = `${protocol}://${address}${path}?${qsParamString}`;
-            const formData = new FormData();
-            formData.append('file', fs.createReadStream(resolve(filePath)));
-            return axios.post(uploadUrl, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
+            const uploadUrl = `${protocol}://${address}${path}`;
+            return rp({
+                method: 'POST',
+                uri: uploadUrl,
+                json: true,
+                formData: {
+                    file: fs.createReadStream(resolve(filePath)),
                 },
+                qs: Object.assign({}, response.link.query, {
+                    api_format: 'json',
+                }),
             });
         });
     }
