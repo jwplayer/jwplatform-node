@@ -9,7 +9,7 @@ Note that this is not developed for client side use, as it requires your API Key
 Install the package with:
 
 ```bash
-npm install jwplatform --save
+yarn add jwplatform
 ```
 
 ## Example Usage
@@ -22,6 +22,18 @@ const jwApi = new JWPlatformAPI({ apiKey: 'INSERT API KEY', apiSecret: 'INSERT A
 jwApi.videos.show({ video_key: 'INSERT VIDEO KEY' }).then((response) => { 
     // handle response data 
 });
+```
+
+### Upload
+
+The JWPlatform library contains a single method for using the `single` upload method.
+
+```node
+const JWPlatformAPI = require('jwplatform');
+
+const jwApi = new JWPlatformAPI({ apiKey: 'INSERT API KEY', apiSecret: 'INSERT API SECRET'});
+
+jwApi.upload({ videoOptions }, '/path/to/file')
 ```
 
 ## Demo

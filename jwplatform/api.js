@@ -13,7 +13,6 @@ class JWPlatformAPI {
         this._client = new Client(apiKey, apiSecret, timeout);
 
         this._loadResources();
-        this.upload = this.upload.bind(this);
     }
 
     _loadResources() {
