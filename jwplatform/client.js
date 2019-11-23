@@ -1,6 +1,6 @@
 'use strict';
 
-const axios = require('axios');
+const rp = require('request-promise');
 const sha1 = require('js-sha1');
 const qs = require('qs');
 
@@ -8,12 +8,9 @@ const utils = require('./utils');
 
 class Client {
     constructor(apiKey, apiSecret, timeout) {
-        this.axios = axios.create({
-            baseURL: 'https://api.jwplatform.com/v1/',
-            timeout,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        });
-
+        this.baseUrl = 'https://api.jwplatform.com/v1/';
+        this.timeout = timeout;
+        this.headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
         this._apiKey = apiKey;
         this._apiSecret = apiSecret;
 
@@ -47,12 +44,13 @@ class Client {
     }
 
     _fetch(url, method, data) {
-        return new Promise((resolve, reject) =>
-            this.axios
-                .request({ method, url, data })
-                .then(response => resolve(response.data))
-                .catch(e => reject(e))
-        );
+        return rp({
+            method,
+            uri: `${this.baseUrl}${url}`,
+            headers: this.headers,
+            json: true,
+            body: data,
+        });
     }
 
     _generateBaseQsParams() {

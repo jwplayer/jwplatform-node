@@ -1,8 +1,11 @@
 'use strict';
 
 const Client = require('./client');
+const fs = require('fs');
 const Resource = require('./resource');
 const resources = require('./resources');
+const resolve = require('path').resolve;
+const rp = require('request-promise');
 
 class JWPlatformAPI {
     constructor(opts = { timeout: 5000 }) {
@@ -26,6 +29,26 @@ class JWPlatformAPI {
             } else {
                 this[resource] = new Resource(_client, resource);
             }
+        });
+    }
+    upload(videoOptions, filePath) {
+        const videoData = Object.assign({}, videoOptions, {
+            upload_method: 'single',
+        });
+        return this.videos.create(videoData).then(response => {
+            const { path, protocol, address } = response.link;
+            const uploadUrl = `${protocol}://${address}${path}`;
+            return rp({
+                method: 'POST',
+                uri: uploadUrl,
+                json: true,
+                formData: {
+                    file: fs.createReadStream(resolve(filePath)),
+                },
+                qs: Object.assign({}, response.link.query, {
+                    api_format: 'json',
+                }),
+            });
         });
     }
 }

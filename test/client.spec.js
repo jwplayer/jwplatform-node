@@ -87,42 +87,4 @@ describe('Client', function() {
             expect(baseParams.api_key).to.equal(MOCK_KEY);
         });
     });
-
-    describe('fetch', () => {
-        it('should call axios request once with method, url, and data', () => {
-            const requestStub = sandbox
-                .stub(client.axios, 'request')
-                .resolves({ data: 'value' });
-            return client._fetch('test', 'get', 'data').then(resp => {
-                expect(resp).to.be.equal('value');
-                sinon.assert.calledOnce(requestStub);
-                requestStub.calledWith({
-                    url: 'test',
-                    method: 'get',
-                    data: 'data',
-                });
-            });
-        });
-
-        it('should parse data from response json', () => {
-            const requestStub = sandbox
-                .stub(client.axios, 'request')
-                .resolves({ data: 'value' });
-            return client._fetch('test', 'get', 'data').then(resp => {
-                expect(resp).to.be.equal('value');
-                sinon.assert.calledOnce(requestStub);
-                requestStub.calledWith({
-                    url: 'test',
-                    method: 'get',
-                    data: 'data',
-                });
-            });
-        });
-    });
-    it('should reject on error', () => {
-        sandbox.stub(client.axios, 'request').returns(Promise.reject('reject'));
-        client._fetch('test', 'get', 'data').catch(e => {
-            expect(e).to.be.equal('reject');
-        });
-    });
 });
