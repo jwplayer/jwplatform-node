@@ -36,8 +36,8 @@ class JWPlatformAPI {
             upload_method: 'single',
         });
         return this.videos.create(videoData).then(response => {
-            const { path, protocol, address } = response.link;
-            const uploadUrl = `${protocol}://${address}${path}`;
+            const { path, address } = response.link;
+            const uploadUrl = `https://${address}${path}`;
             return rp({
                 method: 'POST',
                 uri: uploadUrl,
